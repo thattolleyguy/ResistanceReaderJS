@@ -85,7 +85,7 @@ function generateScript(addedRoles, msPause) {
 }
 
 // --------------- Functions that control the skill's behavior -----------------------
-const availableActions='You can add or remove a role, list available roles, review settings or start the script.'
+const availableActions='You can add or remove a role, list available roles, review settings or start the script.';
 
 function getWelcomeResponse(callback, session) {
     // If we wanted to initialize the session to have some attributes we could add those here.
@@ -180,12 +180,30 @@ function readScript(intent, session, callback) {
     const cardTitle = 'Reading script';
 
     const shouldEndSession = true;
-    let speechOutput= generateScript(addedRoles, 1000);
+    let speechOutput= generateScript(addedRoles, 1000*session.attributes.speed);
 
 
     callback(session.attributes,
         buildSsmlResponse(cardTitle, speechOutput, null, shouldEndSession, 'The script is currently being read'));
 
+}
+
+function changeSpeed(intent,session,callback,speedChange)
+{
+    var action = speedChange<0?"increased":"decreased"; 
+    const cardTitle='Speed '+action;
+    const repromptText = `What would you like to do next? ${availableActions}`;
+    let sessionAttributes = session.attributes;
+    sessionAttributes.speed+=speedChange;
+    if(sessionAttributes.speed<0)
+        sessionAttributes.speed=0;
+    const shouldEndSession = false;
+    const speechOutput = cardTitle+'. What would you like to do next?';
+
+    
+    callback(sessionAttributes,
+        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    
 }
 
 function handleSessionEndRequest(callback) {
@@ -209,6 +227,7 @@ function onSessionStarted(sessionStartedRequest, session) {
     roles.forEach((role) => {
         session.attributes[role] = false;
     });
+    session.attributes.speed = 1;
     console.log(`Session attributes ${JSON.stringify(session.attributes)}`);
 
 }
@@ -244,7 +263,11 @@ function onIntent(intentRequest, session, callback) {
         readScript(intent, session, callback);
     } else if (intentName === 'ListRoles') {
         listRoles(intent, session, callback);
-    } else if (intentName === 'AMAZON.HelpIntent') {
+    } else if (intentName=== 'IncreaseSpeed'){
+        changeSpeed(intent, session, callback,-.25);
+    } else if (intentName=== 'DecreaseSpeed'){
+        changeSpeed(intent, session, callback,.25);
+    }else if (intentName === 'AMAZON.HelpIntent') {
         getHelpResponse(callback, session);
     } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
         handleSessionEndRequest(callback);
@@ -359,3 +382,4 @@ function buildResponse(sessionAttributes, speechletResponse) {
         response: speechletResponse,
     };
 }
+

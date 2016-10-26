@@ -197,7 +197,7 @@ function changeSpeed(intent,session,callback,speedChange)
     if(sessionAttributes.speed<0)
         sessionAttributes.speed=0;
     const shouldEndSession = false;
-    const speechOutput = cardTitle+'. What would you like to do next';
+    const speechOutput = cardTitle+'. What would you like to do next?';
 
     
     callback(sessionAttributes,
