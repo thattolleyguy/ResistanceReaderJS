@@ -1,79 +1,80 @@
 'use strict';
 
 const roles = [
-    'blind spy',
-    'deep cover spy',
-    'false commander',
-    'commander',
-    'body guard',
-    'defectors variant 1',
-    'defectors variant 2'
+    'oberon',
+    'mordred',
+    'morgana',
+    'merlin',
+    'percival',
+    'lancelot variant 1',
+    'lancelot variant 2'
 ];
 
-const skillName='Resistance Reader';
+
+const skillName='Avalon Reader';
 
 function generateScript(addedRoles, msPause) {
     var script = "<speak>";
     script += "Players, close your eyes and put your fists in the center of the group. ";
     script += ("<break time=\"" + (msPause * 1.5) + "ms\"/>");
-    if (addedRoles.indexOf('defectors variant 1') >= 0) {
-        script += "Spy defector, please put up your thumb. ";
+    if (addedRoles.indexOf('lancelot variant 1') >= 0) {
+        script += "Evil lancelot, please put up your thumb. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
     }
-    script += "Spies, ";
-    if (addedRoles.indexOf('deep cover spy') >= 0 && addedRoles.indexOf('false commander') >= 0) {
-        script += "including the deep cover spy and the false commander, ";
-    } else if (addedRoles.indexOf('deep cover spy') >= 0) {
-        script += "including the deep cover spy, ";
-    } else if (addedRoles.indexOf('false commander') >= 0) {
-        script += "including the false commander, ";
+    script += "Minions of mordred, ";
+    if (addedRoles.indexOf('mordred') >= 0 && addedRoles.indexOf('morgana') >= 0) {
+        script += "including mordred and Morgana, ";
+    } else if (addedRoles.indexOf('mordred') >= 0) {
+        script += "including the mordred, ";
+    } else if (addedRoles.indexOf('morgana') >= 0) {
+        script += "including the morgana, ";
     }
-    if (addedRoles.indexOf('blind spy') >= 0) {
-        script += "but not the blind spy, ";
+    if (addedRoles.indexOf('oberon') >= 0) {
+        script += "but not oberon, ";
     }
-    script += "open your eyes and acknowledge your fellow spies. ";
+    script += "open your eyes and acknowledge your fellow minions. ";
     script += ("<break time=\"" + (msPause * 2) + "ms\"/>");
     script += "Everyone close your eyes and put your thumbs down. ";
     script += ("<break time=\"" + msPause + "ms\"/>");
-    if (addedRoles.indexOf('commander') >= 0) {
-        script += "Spies, ";
-        if (addedRoles.indexOf('blind spy') >= 0 && addedRoles.indexOf('false commander') >= 0) {
-            script += "including the blind spy and the false commander, ";
-        } else if (addedRoles.indexOf('blind spy') >= 0) {
-            script += "including the blind spy, ";
-        } else if (addedRoles.indexOf('false commander') >= 0) {
-            script += "including the false commander, ";
+    if (addedRoles.indexOf('merlin') >= 0) {
+        script += "Minions of Mordred, ";
+        if (addedRoles.indexOf('oberon') >= 0 && addedRoles.indexOf('morgana') >= 0) {
+            script += "including oberon and morgana, ";
+        } else if (addedRoles.indexOf('oberon') >= 0) {
+            script += "including Oberon, ";
+        } else if (addedRoles.indexOf('morgana') >= 0) {
+            script += "including Morgana, ";
         }
-        if (addedRoles.indexOf('deep cover spy') >= 0) {
-            script += "but not the deep cover spy, ";
+        if (addedRoles.indexOf('mordred') >= 0) {
+            script += "but not Mordred, ";
         }
         script += "put up your thumbs. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
-        script += "Commander, open your eyes and see the spies. ";
+        script += "Merlin, open your eyes and see the minions. ";
         script += ("<break time=\"" + (msPause * 2) + "ms\"/>");
         script += "Everyone, close your eyes and put your thumbs down. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
     }
-    if (addedRoles.indexOf('body guard') >= 0 && (addedRoles.indexOf('commander') >= 0 || addedRoles.indexOf('false commander') >= 0)) {
-        if (addedRoles.indexOf('commander') >= 0 && addedRoles.indexOf('false commander') >= 0) {
-            script += "Commander and false commander, ";
-        } else if (addedRoles.indexOf('commander') >= 0) {
-            script += "Commander, ";
-        } else if (addedRoles.indexOf('false commander') >= 0) {
-            script += "False commander, ";
+    if (addedRoles.indexOf('percival') >= 0 && (addedRoles.indexOf('merlin') >= 0 || addedRoles.indexOf('morgana') >= 0)) {
+        if (addedRoles.indexOf('merlin') >= 0 && addedRoles.indexOf('morgana') >= 0) {
+            script += "Merlin and morgana, ";
+        } else if (addedRoles.indexOf('merlin') >= 0) {
+            script += "Merlin, ";
+        } else if (addedRoles.indexOf('morgana') >= 0) {
+            script += "Morgana, ";
         }
         script += " please put up your thumbs. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
-        script += "Body guard, open your eyes. ";
+        script += "Percival, open your eyes. ";
         script += ("<break time=\"" + (msPause * 1.5) + "ms\"/>");
         script += "Everyone close your eyes and put your thumbs down. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
     }
 
-    if (addedRoles.indexOf('defectors variant 2') >= 0) {
-        script += "Defectors, open your eyes and acknowledge one another. ";
+    if (addedRoles.indexOf('lancelot variant 2') >= 0) {
+        script += "Lancelots, open your eyes and acknowledge one another. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
-        script += "Defectors, close your eyes. ";
+        script += "Lancelots, close your eyes. ";
         script += ("<break time=\"" + msPause + "ms\"/>");
     }
     script += "Everyone open your eyes. ";
@@ -84,7 +85,7 @@ function generateScript(addedRoles, msPause) {
 }
 
 // --------------- Functions that control the skill's behavior -----------------------
-const availableActions='You can add or remove a role, list available roles, review settings or start the script.';
+const availableActions='You can add or remove a role, list available roles, review settings or start the script.'
 
 function getWelcomeResponse(callback, session) {
     // If we wanted to initialize the session to have some attributes we could add those here.
@@ -179,30 +180,12 @@ function readScript(intent, session, callback) {
     const cardTitle = 'Reading script';
 
     const shouldEndSession = true;
-    let speechOutput= generateScript(addedRoles, 1000*session.attributes.speed);
+    let speechOutput= generateScript(addedRoles, 1000);
 
 
     callback(session.attributes,
         buildSsmlResponse(cardTitle, speechOutput, null, shouldEndSession, 'The script is currently being read'));
 
-}
-
-function changeSpeed(intent,session,callback,speedChange)
-{
-    var action = speedChange<0?"increased":"decreased"; 
-    const cardTitle='Speed '+action;
-    const repromptText = `What would you like to do next? ${availableActions}`;
-    let sessionAttributes = session.attributes;
-    sessionAttributes.speed+=speedChange;
-    if(sessionAttributes.speed<0)
-        sessionAttributes.speed=0;
-    const shouldEndSession = false;
-    const speechOutput = cardTitle+'. What would you like to do next';
-
-    
-    callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-    
 }
 
 function handleSessionEndRequest(callback) {
@@ -226,7 +209,6 @@ function onSessionStarted(sessionStartedRequest, session) {
     roles.forEach((role) => {
         session.attributes[role] = false;
     });
-    session.attributes.speed = 1;
     console.log(`Session attributes ${JSON.stringify(session.attributes)}`);
 
 }
@@ -262,11 +244,7 @@ function onIntent(intentRequest, session, callback) {
         readScript(intent, session, callback);
     } else if (intentName === 'ListRoles') {
         listRoles(intent, session, callback);
-    } else if (intentName=== 'IncreaseSpeed'){
-        changeSpeed(intent, session, callback,-.25);
-    } else if (intentName=== 'DecreaseSpeed'){
-        changeSpeed(intent, session, callback,.25);
-    }else if (intentName === 'AMAZON.HelpIntent') {
+    } else if (intentName === 'AMAZON.HelpIntent') {
         getHelpResponse(callback, session);
     } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
         handleSessionEndRequest(callback);
@@ -381,4 +359,3 @@ function buildResponse(sessionAttributes, speechletResponse) {
         response: speechletResponse,
     };
 }
-
